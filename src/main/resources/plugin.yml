@@ -2,3 +2,7 @@ name: emoji
 version: '${version}'
 main: org.emoji.Emoji
 api-version: '1.20'
+libraries:
+  - "net.kyori:adventure-text-minimessage:4.17.0"
+commands:
+  이모지:
