@@ -2,6 +2,7 @@ package org.emoji.module.inventory;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
@@ -46,8 +47,15 @@ public class EmojiModule {
         String itemName = itemMeta.getDisplayName();
         if (EmojiData.emojiList.containsKey(itemName)) {
             EmojiInfo emojiInfo = EmojiData.emojiList.get(itemName);
-            ItemDisplay emojiDisplay = displayModule.makeItemDisplay(player, player.getLocation().add(0, 2, 0), emojiInfo.getEmojiItem(), 1.0, Display.Billboard.CENTER);
-            player.addPassenger(emojiDisplay);
+            ArmorStand temp = player.getWorld().spawn(player.getLocation(), ArmorStand.class);
+            temp.setVisible(false);
+            temp.setInvisible(true);
+            ItemDisplay emojiDisplay = displayModule.makeItemDisplay(player, player.getLocation(), emojiInfo.getEmojiItem(), 1.0, Display.Billboard.CENTER);
+            temp.addPassenger(emojiDisplay);
+            player.addPassenger(temp);
+            EmojiData.tempStandList.add(temp);
+            EmojiData.emojiDisplayList.add(emojiDisplay);
+            taskModule.runBukkitTaskLater(temp::remove, TickData.longTick * 3);
             taskModule.runBukkitTaskLater(emojiDisplay::remove, TickData.longTick * 3);
         }
         event.setCancelled(true);
