@@ -23,38 +23,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class EmojiModule {
-    private final ItemModule itemModule = new ItemModule();
     private final TaskModule taskModule = new TaskModule();
-    private final InventoryModule inventoryModule = new InventoryModule();
-    private final ConfigModule configModule = new ConfigModule();
     private final DisplayModule displayModule = new DisplayModule();
 
-    public void initializeEmojiConfig() {
-        EmojiData.release();
-
-        FileConfiguration config = configModule.getConfig(configModule.emojiConfig);
-
-        EmojiData.emojiInventoryName = config.getString(CSN.INVENTORY.getLower(), BaseMessage.ERROR.getMessage());
-        EmojiData.emojiInventorySize = config.getInt(CSN.INVENTORY.getLower() + "." + CSN.SIZE.getLower(), 9);
-        EmojiData.emojiInventory = inventoryModule.makeInventory(null, EmojiData.emojiInventoryName, EmojiData.emojiInventorySize);
-
-        for (String emojiName : Objects.requireNonNull(config.getConfigurationSection(CSN.EMOJI.getLower())).getKeys(false)) {
-            String prefix = CSN.EMOJI.getLower() + "." + emojiName + ".";
-            List<String> emojiDescription = config.getStringList(prefix + CSN.DESCRIPTION.getLower());
-            Material emojiMaterial = Material.getMaterial(config.getString(prefix + CSN.MATERIAL.getLower(), itemModule.errorRotten));
-            int emojiAmount = config.getInt(prefix + CSN.AMOUNT.getLower(), 1);
-            int emojiSlot = config.getInt(prefix + CSN.SLOT.getLower(), 0);
-            int emojiData = config.getInt(prefix + CSN.DATA.getLower(), 0);
-            ItemStack emojiItem = itemModule.setCustomItem(emojiMaterial, emojiName, emojiDescription, emojiData, emojiAmount);
-            EmojiInfo emojiInfo = EmojiInfo.builder()
-                    .emojiItem(emojiItem)
-                    .emojiName(emojiName)
-                    .emojiSlot(emojiSlot)
-                    .build();
-            EmojiData.emojiList.put(emojiName, emojiInfo);
-            EmojiData.emojiInventory.setItem(emojiSlot, emojiItem);
-        }
-    }
 
     public void openEmojiInventory(Player player) {
         player.openInventory(EmojiData.emojiInventory);

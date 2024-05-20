@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.emoji.Command.CommandManager;
 import org.emoji.Event.EventManager;
 import org.emoji.data.EmojiData;
+import org.emoji.module.BaseModule.ConfigModule;
 
 import java.util.logging.Logger;
 
@@ -16,12 +17,16 @@ public final class Emoji extends JavaPlugin {
     @Getter
     public static Logger log = Bukkit.getLogger();
 
+    private final ConfigModule configModule =new ConfigModule();
     @Override
     public void onEnable() {
         // Plugin startup logic
         plugin = this;
         CommandManager commandManager = new CommandManager(this);
         EventManager eventManager = new EventManager(this.getServer(), this);
+
+        // emoji get
+        configModule.getEmojiConfig();
     }
 
     @Override
