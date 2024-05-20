@@ -11,7 +11,7 @@ import java.util.Map;
 public enum BaseMessage {
 
     // prefix
-    PREFIX(""),
+    PREFIX("[Emoji]"),
 
     // 기본
     DEFAULT("기본"),
@@ -19,6 +19,9 @@ public enum BaseMessage {
     // Command
     COMMAND_EMOJI("이모지"),
     COMMAND_RELOAD("리로드"),
+
+    // message
+    MESSAGE_RELOAD("리로드 되었습니다."),
 
     // Error
     ERROR("에러"),

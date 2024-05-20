@@ -20,7 +20,7 @@ public class MessageModule {
 
     public Component initialize() {
         MiniMessage miniMessage = MiniMessage.miniMessage();
-        return miniMessage.deserialize("<gradiant:yellow:red>" + BaseMessage.PREFIX.getMessage());
+        return miniMessage.deserialize("<gradient:green:blue>" + BaseMessage.PREFIX.getMessage() + "</gradient>");
     }
 
     public void logInfo(String arg) {
