@@ -46,7 +46,7 @@ public class ConfigModule {
 
         FileConfiguration config = getConfig(emojiConfig);
 
-        EmojiData.emojiInventoryName = config.getString(CSN.INVENTORY.getLower(), BaseMessage.ERROR.getMessage());
+        EmojiData.emojiInventoryName = config.getString(CSN.INVENTORY.getLower() + "." + CSN.NAME.getLower(), BaseMessage.ERROR.getMessage());
         EmojiData.emojiInventorySize = config.getInt(CSN.INVENTORY.getLower() + "." + CSN.SIZE.getLower(), 9);
         EmojiData.emojiInventory = inventoryModule.makeInventory(null, EmojiData.emojiInventoryName, EmojiData.emojiInventorySize);
 
