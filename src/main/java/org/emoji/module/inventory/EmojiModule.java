@@ -38,8 +38,7 @@ public class EmojiModule {
         if (!event.getView().getTitle().equals(EmojiData.emojiInventoryName)) {
             return;
         }
-        int clickSlot = event.getSlot();
-        ItemStack item = inventory.getItem(clickSlot);
+        ItemStack item = event.getCurrentItem();
         if (item == null) return;
         ItemMeta itemMeta = item.getItemMeta();
         if (itemMeta == null) return;
